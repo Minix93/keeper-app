@@ -39,6 +39,8 @@ function App() {
         });
 
         // delete from the database
+        fetch("/api/"+id, {method: "DELETE"} )
+            .then(res => console.log(res));
 
     };
 
