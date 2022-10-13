@@ -13,31 +13,12 @@ function App() {
     const [noteList, setNoteList] = useState(initalNotes);
 
 
-    // add the note when button "Add" is clicked
-    function addNote(inputContent){
-        currIndex += 1;
-        const newNote = {
-            ...inputContent,
-            key: currIndex
-        }
-        setNoteList(prevState => {
-           return ([
-               ...prevState,
-               newNote
-           ]);
-        });
-    }
-
-    function deleteNote(id){
-        setNoteList(prevState => {
-            return prevState.filter((note,index)=>{
-                return index !== id;
-            });
-        });
-    };
 
 
 
+
+
+    // get data from the database
     const [data, setData] = useState([{}]);
 
     useEffect(()=>{
@@ -48,6 +29,35 @@ function App() {
 
 
 
+    // delete note from the list
+    function deleteNote(id){
+        // delete from the data list state
+        setData(prevState => {
+            return prevState.filter((note)=>{
+                return note._id !== id;
+            });
+        });
+
+        // delete from the database
+
+    };
+
+
+    // add the note when button "Add" is clicked
+    function addNote(inputContent){
+        currIndex += 1;
+        const newNote = {
+            ...inputContent,
+            key: currIndex
+        }
+        setNoteList(prevState => {
+            return ([
+                ...prevState,
+                newNote
+            ]);
+        });
+    }
+
 
 
   return (
@@ -56,23 +66,25 @@ function App() {
         <CreateArea
         onAdd={addNote}/>
 
-      {noteList.map((note, index)=>{
-        return <Note
-            key={index}
-            id={index}
-          title={note.title}
-          content={note.content}
-            onDelete={deleteNote}
-        />;
-      })}
+      {/*{noteList.map((note, index)=>{*/}
+      {/*  return <Note*/}
+      {/*      key={index}*/}
+      {/*      id={index}*/}
+      {/*    title={note.title}*/}
+      {/*    content={note.content}*/}
+      {/*      onDelete={deleteNote}*/}
+      {/*  />;*/}
+      {/*})}*/}
 
-        <Note
-            key={10}
-            id={10}
-            title={data.title}
-            content={data.content}
-            onDelete={deleteNote}
-        />
+        {data.map((note) =>{
+            return <Note
+                key = {note._id}
+                id = {note._id}
+                title= {note.title}
+                content={note.body}
+                onDelete={deleteNote}
+            />
+        })}
 
       <Footer />
     </div>
