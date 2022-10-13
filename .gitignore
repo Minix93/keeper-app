@@ -2,3 +2,7 @@
 /server/node_modules/
 /.idea/
 /node_modules/
+/.env
+/*.orig
+/.DS_Store
+/client/build/
