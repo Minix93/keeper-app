@@ -3,20 +3,10 @@ import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
-import notes from "../notes";
 import CreateArea from "./CreateArea";
 
 
 function App() {
-    const initalNotes = notes;
-    let currIndex = notes.length;
-    const [noteList, setNoteList] = useState(initalNotes);
-
-
-
-
-
-
 
     // get data from the database
     const [data, setData] = useState([{}]);
@@ -47,17 +37,6 @@ function App() {
 
     // add the note when button "Add" is clicked
     function addNote(inputContent){
-        // currIndex += 1;
-        // const newNote = {
-        //     ...inputContent,
-        //     key: currIndex
-        // }
-        // setNoteList(prevState => {
-        //     return ([
-        //         ...prevState,
-        //         newNote
-        //     ]);
-        // });
 
         const {title, content} = inputContent;
         const newNote = {
@@ -69,7 +48,9 @@ function App() {
             method: "POST",
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify(newNote)})
-            .then(res => console.log(res));
+            .then(res => res.json())
+            .then(data => setData(data) );
+
     }
 
 

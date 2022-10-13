@@ -37,7 +37,9 @@ router.post("/", async function(req,res){
         body: inputContent.body
     });
     await newNote.save(function (err,note){
-        res.send(note._id);
+        Note.find({}).lean().exec((err, notes) =>{
+            res.send(notes);
+        });
     });
 
 })
