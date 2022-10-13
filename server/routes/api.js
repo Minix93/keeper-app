@@ -11,10 +11,10 @@ app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
 
 /* GET notes from database */
-router.get("/", function(req, res, next) {
+router.get("/", async function(req, res, next) {
 
 
-    Note.find({}).lean().exec((err, notes) =>{
+    await Note.find({}).lean().exec((err, notes) =>{
         res.send(notes);
     });
 
@@ -29,6 +29,17 @@ router.delete("/:id", async function (req,res){
 });
 
 
+/* POST new notes to database*/
+router.post("/", async function(req,res){
+    const inputContent = req.body;
+    const newNote = new Note({
+        title: inputContent.title,
+        body: inputContent.body
+    });
+    await newNote.save(function (err,note){
+        res.send(note._id);
+    });
 
+})
 
 module.exports = router;

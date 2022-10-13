@@ -47,17 +47,29 @@ function App() {
 
     // add the note when button "Add" is clicked
     function addNote(inputContent){
-        currIndex += 1;
+        // currIndex += 1;
+        // const newNote = {
+        //     ...inputContent,
+        //     key: currIndex
+        // }
+        // setNoteList(prevState => {
+        //     return ([
+        //         ...prevState,
+        //         newNote
+        //     ]);
+        // });
+
+        const {title, content} = inputContent;
         const newNote = {
-            ...inputContent,
-            key: currIndex
+            title: title,
+            body : content
         }
-        setNoteList(prevState => {
-            return ([
-                ...prevState,
-                newNote
-            ]);
-        });
+
+        fetch("/api",{
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(newNote)})
+            .then(res => console.log(res));
     }
 
 
