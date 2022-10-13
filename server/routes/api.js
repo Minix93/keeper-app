@@ -12,12 +12,7 @@ app.use(bodyParser.json());
 
 /* GET notes from database */
 router.get("/", function(req, res, next) {
-    // res.json({
-    //     key: 4,
-    //     title: "This note data sends from Server",
-    //     content:
-    //         "What's the difference between hardware and software? You can hit your hardware with a hammer, but you can only curse at your software."
-    // });
+
 
     Note.find({}).lean().exec((err, notes) =>{
         res.send(notes);
@@ -25,5 +20,15 @@ router.get("/", function(req, res, next) {
 
 
 });
+
+/* DELETE note from databse by ID*/
+router.delete("/:id", async function (req,res){
+    const note = await Note.findByIdAndDelete(req.params.id);
+
+    res.send("Deleted: " + note);
+});
+
+
+
 
 module.exports = router;
