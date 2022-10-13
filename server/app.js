@@ -9,6 +9,8 @@ app.use(bodyParser.json());
 app.use("/api",api);
 
 
-app.listen(3001, function(){
-  console.log("Server successfully started at port 3001");
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, function(){
+  console.log("Server successfully started!");
 });
