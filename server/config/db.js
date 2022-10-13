@@ -8,15 +8,8 @@ const app = express();
 
 mongoose.connect('mongodb://localhost:27017/test');
 
+const db = mongoose.connection;
 
-// for test use only
-const Note = require('../models/note');
+module.exports = db;
 
-const testNote = new Note({
-    title: "testNote Title",
-    body: "testNote Body"
-});
 
-testNote.save().then(()=> console.log(testNote));
-
-//test  code ends
